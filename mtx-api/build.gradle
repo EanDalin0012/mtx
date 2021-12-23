@@ -55,7 +55,12 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
-
+	// logging
+	implementation group: 'org.slf4j', name: 'slf4j-api'
+	implementation group: 'org.slf4j', name: 'jcl-over-slf4j'
+	testImplementation group: 'org.slf4j', name: 'slf4j-log4j12'
+	implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+	
 	// test
 	testRuntimeOnly 	'org.junit.platform:junit-platform-commons:1.7.0'
 	testImplementation 'junit:junit'

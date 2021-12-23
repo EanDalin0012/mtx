@@ -2,12 +2,14 @@ package com.video.mtx.admin.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VideoDTO {
+@ToString
+public class VideoTypeDTO {
 	private int id;
-    private String seatCounts;
-    private String type;
+    private String name;
+    private String remark;
 }
