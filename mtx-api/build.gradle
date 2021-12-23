@@ -1,6 +1,9 @@
 plugins {
 	id 'org.springframework.boot' version '2.6.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'io.franzbecker.gradle-lombok' version '5.0.0'
+	id 'com.diffplug.eclipse.apt' version '3.33.3'
+	id 'eclipse'
 	id 'java'
 	id 'war'
 }
@@ -8,6 +11,24 @@ plugins {
 group = 'com.video'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+configurations.compileOnly.setCanBeResolved(true)
+eclipse.project {
+	natures 'org.eclipse.buildship.core.gradleprojectnature'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+ext {
+	mybatisVersion = '2.2.0'
+	postgresqlCPVersion = '42.3.1'
+	hikariCPVersion = '4.0.3'
+	commonsioVersion = '2.11.0'
+	swaggerVersion = '3.0.0'
+	mapstructVersion = '1.4.2.Final'
+}
 
 repositories {
 	mavenCentral()
@@ -16,6 +37,32 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// Java Bean mapper
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+	implementation 'org.projectlombok:lombok'
+	// apache commons
+	implementation 'commons-beanutils:commons-beanutils:1.9.3'
+	implementation 'org.apache.commons:commons-lang3'
+	implementation 'org.apache.commons:commons-text:1.9'
+	implementation 'commons-io:commons-io:2.4'
+	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+	implementation group: 'org.springframework', name: 'spring-tx', version: '5.2.7.RELEASE'
+	implementation group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+	implementation group: 'commons-codec', name: 'commons-codec', version: '1.14'
+	
+	//annotationProcessor
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
+	// test
+	testRuntimeOnly 	'org.junit.platform:junit-platform-commons:1.7.0'
+	testImplementation 'junit:junit'
+	testImplementation 'org.springframework:spring-test'
+	testImplementation 'org.junit.vintage:junit-vintage-engine:5.5.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
